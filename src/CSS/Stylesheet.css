@@ -5,3 +5,12 @@
    -fx-stroke: #091921;
     -fx-stroke-width: 1px;
 }
+#dot{
+    -fx-fill: #fff;
+}
+#hr{
+    -fx-fill: #ff105e;
+}
+#mn, #sc{
+    -fx-fill: #fff;
+}
