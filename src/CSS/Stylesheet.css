@@ -2,7 +2,6 @@
     -fx-background-color: #091921;
 }
 #circle{
-    -fx-fill: #091921;
-    -fx-stroke: #091921;
-    -fx-stroke-width: 4px;
+   -fx-stroke: #091921;
+    -fx-stroke-width: 1px;
 }
