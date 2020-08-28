@@ -1,3 +1,4 @@
+import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.effect.BlurType;
@@ -9,9 +10,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.FileInputStream;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class AnimatedClock extends Application {
     @Override
@@ -64,21 +69,87 @@ public class AnimatedClock extends Application {
         hr.setId("hr");
         hr.setLayoutX(circle1.getCenterX()+408);
         hr.setLayoutY(circle1.getCenterY()+180);
+        hr.setTranslateY(80);
+        hr.setTranslateX(-80);
 
         Rectangle mn = new Rectangle(4,100);
         mn.setId("mn");
-        mn.setLayoutY(circle1.getCenterY()+160);
-        mn.setLayoutX(circle1.getCenterX()+407.6);
+        mn.setLayoutY(circle1.getCenterY()+170);
+        mn.setLayoutX(circle1.getCenterX()+507.6);
+        //mn.setTranslateX(0);
+        mn.setTranslateY(100);
 
         Rectangle sc = new Rectangle(2,120);
         sc.setId("sc");
         sc.setLayoutX(circle1.getCenterX()+408);
         sc.setLayoutY(circle1.getCenterY()+140);
+        sc.setTranslateY(120);
         anchorPane.getChildren().addAll(circle,hr,mn,sc,circle1);
         Scene scene = new Scene(anchorPane,800,600);
         scene.getStylesheets().add("/CSS/Stylesheet.css");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        /*Determine the start time*/
+        Calendar calendar = GregorianCalendar.getInstance();
+        double secondDegrees = calendar.get(Calendar.SECOND) * (360.0 / 60);
+        double minuteDegrees = (calendar.get(Calendar.MINUTE) + secondDegrees / 360.0 ) * (360.0 / 60);
+        double hourDegrees = (calendar.get(Calendar.HOUR) + minuteDegrees / 360.0) * (360.0 / 12);
+
+        /*Define the rotations to the map to analogue clock*/
+        Rotate hourRotate = new Rotate(hourDegrees);
+        Rotate minuteRotate = new Rotate(minuteDegrees);
+        Rotate secondRotate = new Rotate(secondDegrees);
+
+        hr.getTransforms().add(hourRotate);
+        mn.getTransforms().add(minuteRotate);
+        sc.getTransforms().add(secondRotate);
+
+        /*hour hand rotate twice a day*/
+        Timeline hourTime =  new Timeline(
+                new KeyFrame(
+                        Duration.hours(12),
+                        new KeyValue(
+                                hourRotate.angleProperty(),
+                                360+hourDegrees,
+                                Interpolator.LINEAR
+                        )
+                )
+        );
+
+        /*Minute hand rotate once a hour*/
+        Timeline minuteTime = new Timeline(
+                new KeyFrame(
+                        Duration.minutes(60),
+                        new KeyValue(
+                                minuteRotate.angleProperty(),
+                                360+minuteDegrees,
+                                Interpolator.LINEAR
+                        )
+                )
+        );
+
+        /*Second hand rotate once a minute*/
+        Timeline secondTime = new Timeline(
+                new KeyFrame(
+                        Duration.seconds(60),
+                        new KeyValue(
+                                secondRotate.angleProperty(),
+                                360+secondDegrees,
+                                Interpolator.LINEAR
+                        )
+                )
+        );
+
+        /*Time never ends*/
+        hourTime.setCycleCount(Animation.INDEFINITE);
+        minuteTime.setCycleCount(Animation.INDEFINITE);
+        secondTime.setCycleCount(Animation.INDEFINITE);
+
+        /*start the analogue*/
+        hourTime.play();
+        minuteTime.play();
+        secondTime.play();
 
 
     }
