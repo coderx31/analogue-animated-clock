@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -65,25 +66,20 @@ public class AnimatedClock extends Application {
         circle1.setLayoutY(circle.getCenterY()+260);
         circle1.setLayoutX(circle.getCenterX()+410);
 
-        Rectangle hr = new Rectangle(6,80);
+
+
+        Line hr = new Line(0,0,0,-75);
         hr.setId("hr");
-        hr.setLayoutX(circle1.getCenterX()+408);
-        hr.setLayoutY(circle1.getCenterY()+180);
-        hr.setTranslateY(80);
-        hr.setTranslateX(-80);
-
-        Rectangle mn = new Rectangle(4,100);
+        hr.setTranslateX(410);
+        hr.setTranslateY(260);
+        Line mn = new Line(0,0,0,-100);
         mn.setId("mn");
-        mn.setLayoutY(circle1.getCenterY()+170);
-        mn.setLayoutX(circle1.getCenterX()+507.6);
-        //mn.setTranslateX(0);
-        mn.setTranslateY(100);
-
-        Rectangle sc = new Rectangle(2,120);
+        mn.setTranslateX(410);
+        mn.setTranslateY(260);
+        Line sc = new Line(0,0,0,-125);
         sc.setId("sc");
-        sc.setLayoutX(circle1.getCenterX()+408);
-        sc.setLayoutY(circle1.getCenterY()+140);
-        sc.setTranslateY(120);
+        sc.setTranslateX(410);
+        sc.setTranslateY(260);
         anchorPane.getChildren().addAll(circle,hr,mn,sc,circle1);
         Scene scene = new Scene(anchorPane,800,600);
         scene.getStylesheets().add("/CSS/Stylesheet.css");

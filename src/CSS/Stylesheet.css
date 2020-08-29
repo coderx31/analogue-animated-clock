@@ -9,8 +9,19 @@
     -fx-fill: #fff;
 }
 #hr{
-    -fx-fill: #ff105e;
+
+    -fx-stroke:  #ff105e;
+    -fx-stroke-width: 4;
+    -fx-stroke-line-cap: round;
 }
-#mn, #sc{
-    -fx-fill: #fff;
+#mn {
+
+    -fx-stroke: #fff;
+    -fx-stroke-width: 3;
+    -fx-stroke-line-cap: round;
+}
+#sc{
+    -fx-stroke: #fff;
+    -fx-stroke-width: 2;
+    -fx-stroke-line-cap: round;
 }
