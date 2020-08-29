@@ -16,6 +16,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.FileInputStream;
@@ -23,6 +24,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 public class AnimatedClock extends Application {
+    private  double xOffset = 0;
+    private  double yOffset = 0;
     @Override
     public void start(Stage primaryStage) throws Exception {
         DropShadow upperDrop = new DropShadow();
@@ -108,8 +111,18 @@ public class AnimatedClock extends Application {
         anchorPane.getChildren().addAll(circle,hr,mn,sc,circle1,close,analogue,name);
         Scene scene = new Scene(anchorPane,800,600);
         scene.getStylesheets().add("/CSS/Stylesheet.css");
+        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        anchorPane.setOnMousePressed(e ->{
+            xOffset = e.getSceneX();
+            yOffset = e.getSceneY();
+        });
+        anchorPane.setOnMouseDragged( e ->{
+            primaryStage.setX(e.getScreenX() - xOffset);
+            primaryStage.setY(e.getScreenY() - yOffset);
+        });
 
         /*Determine the start time*/
         Calendar calendar = GregorianCalendar.getInstance();
