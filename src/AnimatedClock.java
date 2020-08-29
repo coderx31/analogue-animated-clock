@@ -1,6 +1,9 @@
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
@@ -10,7 +13,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -45,7 +48,20 @@ public class AnimatedClock extends Application {
         belowInner.setOffsetY(5);
         belowInner.setBlurType(BlurType.THREE_PASS_BOX);
         belowInner.setColor(Color.rgb(0,0,0,0.3));
+
+        /*Loading custom fonts for the project*/
+        FileInputStream poppinsBold = new FileInputStream("Resources/Fonts/Poppins-Bold.ttf");
+        Font.loadFont(poppinsBold,18);
+        FileInputStream consolasRegular = new FileInputStream("Resources/Fonts/consola.ttf");
+        Font.loadFont(consolasRegular,18);
         AnchorPane anchorPane = new AnchorPane();
+        FontAwesomeIconView closeIcon = new FontAwesomeIconView(FontAwesomeIcon.CLOSE);
+        closeIcon.setId("close-icon");
+        Label close = new Label("",closeIcon);
+        close.setId("close");
+        close.setLayoutX(775);
+        close.setLayoutY(5);
+        close.setOnMouseClicked(e -> System.exit(0));
         anchorPane.setId("anchor-pane");
         Circle circle = new Circle(180);
         circle.setId("circle");
@@ -80,7 +96,16 @@ public class AnimatedClock extends Application {
         sc.setId("sc");
         sc.setTranslateX(410);
         sc.setTranslateY(260);
-        anchorPane.getChildren().addAll(circle,hr,mn,sc,circle1);
+
+        Label analogue = new Label("Analogue Clock");
+        analogue.setLayoutX(330);
+        analogue.setLayoutY(470);
+        analogue.setId("analogue");
+        Label name = new Label("Coderx");
+        name.setLayoutX(375);
+        name.setLayoutY(560);
+        name.setId("name");
+        anchorPane.getChildren().addAll(circle,hr,mn,sc,circle1,close,analogue,name);
         Scene scene = new Scene(anchorPane,800,600);
         scene.getStylesheets().add("/CSS/Stylesheet.css");
         primaryStage.setScene(scene);

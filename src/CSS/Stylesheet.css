@@ -25,3 +25,21 @@
     -fx-stroke-width: 2;
     -fx-stroke-line-cap: round;
 }
+#close-icon{
+    -fx-fill: #c7c7c7;
+    -glyph-size: 20px;
+}
+#close{
+    -fx-cursor: hand;
+}
+#analogue{
+    -fx-font-family: "Poppins Bold";
+    -fx-font-size: 18px;
+    -fx-text-fill: #c7c7c7;
+}
+
+#name{
+    -fx-font-family: "Consolas Regular";
+    -fx-font-size: 14px;
+    -fx-text-fill: #c7c7c7;
+}
